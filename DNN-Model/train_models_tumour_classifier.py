@@ -2,12 +2,14 @@ import tensorflow as tf
 import random as rn
 import numpy as np
 import os
+from __future__ import print_function
 os.environ['PYTHONHASHSEED'] = '0'
 # Setting the seed for numpy-generated random numbers
 np.random.seed(45)
 
 # Setting the graph-level random seed.
 tf.random.set_seed(1337)
+
 rn.seed(73)
 
 from keras import backend as K

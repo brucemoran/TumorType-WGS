@@ -3,6 +3,13 @@ Classifying tumor types based on Whole Genome Sequencing (WGS) data
 
 I have had some communication with PI and authors. I have also created a Dockerfile and docker is on the dockerhub: <dh>
 
+## Docker
+```
+git clone https://github.com/brucemoran/TumorType-WGS
+cd TumorType-WGS
+docker build -t tumortype-wgs_0.0.1 .
+```
+
 ## Input
 "The input file should be a csv file of dimensionality Nx3047, where N = number of samples, and 3047 are the features ([mutation_distribution, mutation_types])."
 

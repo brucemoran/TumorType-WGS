@@ -2,6 +2,8 @@ import tensorflow as tf
 import random as rn
 import numpy as np
 import os
+from __future__ import print_function
+
 os.environ['PYTHONHASHSEED'] = '0'
 # Setting the seed for numpy-generated random numbers
 np.random.seed(45)
