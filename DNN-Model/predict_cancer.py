@@ -1,6 +1,6 @@
 from __future__ import print_function
 import tensorflow as tf
-from tensorflow import keras
+from tf import keras
 import random as rn
 import numpy as np
 import os
@@ -16,7 +16,7 @@ rn.seed(73)
 
 from keras import backend as K
 
-session_conf = tf.ConfigProto(
+session_conf = tf.v1.ConfigProto(
       intra_op_parallelism_threads=1,
       inter_op_parallelism_threads=1)
 
