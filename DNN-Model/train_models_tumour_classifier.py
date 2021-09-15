@@ -32,7 +32,7 @@ from keras.layers import InputLayer, Input
 from keras.layers import Dropout
 from keras.layers import Dense
 from keras.callbacks import TensorBoard, EarlyStopping
-from keras.optimizers import Adam, Adamax
+from tensorflow.keras.optimizers import Adam, Adamax
 from keras.models import load_model
 from keras import regularizers
 

@@ -36,7 +36,7 @@ from keras.layers import InputLayer, Input
 from keras.layers import Dropout
 from keras.layers import Dense
 from keras.callbacks import TensorBoard
-from keras.optimizers import Adam
+from tensorflow.keras.optimizers import Adam
 from keras.models import load_model
 from keras import regularizers
 
