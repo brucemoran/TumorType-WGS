@@ -17,5 +17,7 @@ RUN yum install -y git python3
 RUN curl https://bootstrap.pypa.io/pip/2.7/get-pip.py --output get-pip.py && python get-pip.py
 RUN pip install setuptools
 RUN pip install --user --no-warn-script-location -r requirements.txt
+RUN python3 -m pip install --upgrade pip
+RUN pip3 install --user --no-warn-script-location -r requirements.txt
 RUN git clone https://github.com/brucemoran/TumorType-WGS && chmod a+x /TumorType-WGS/DNN-Model/predict_cancer.py
 ENV PATH="/root/.local/bin:${PATH}"
