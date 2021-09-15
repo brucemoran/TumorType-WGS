@@ -1,17 +1,16 @@
 import tensorflow as tf
 import random as rn
-import numpy as np 
-import os 
+import numpy as np
+import os
 os.environ['PYTHONHASHSEED'] = '0'
 # Setting the seed for numpy-generated random numbers
 np.random.seed(45)
 
 # Setting the graph-level random seed.
-tf.set_random_seed(1337)
-
+tf.random.set_seed(1337)
 rn.seed(73)
 
-from keras import backend as K 
+from keras import backend as K
 
 session_conf = tf.ConfigProto(
       intra_op_parallelism_threads=1,
@@ -21,24 +20,24 @@ session_conf = tf.ConfigProto(
 sess = tf.Session(graph=tf.get_default_graph(), config=session_conf)
 
 K.set_session(sess)
-import math 
+import math
 import pandas as pd
 
 import keras
-from keras import backend as K 
-from keras.models import Sequential 
+from keras import backend as K
+from keras.models import Sequential
 from keras.layers import InputLayer, Input
 from keras.layers import Dropout
 from keras.layers import Dense
-from keras.callbacks import TensorBoard, EarlyStopping 
+from keras.callbacks import TensorBoard, EarlyStopping
 from keras.optimizers import Adam, Adamax
-from keras.models import load_model 
+from keras.models import load_model
 from keras import regularizers
 
-import skopt 
+import skopt
 from skopt import gp_minimize, forest_minimize
-from skopt.space import Real, Categorical, Integer 
-from skopt.plots import plot_convergence 
+from skopt.space import Real, Categorical, Integer
+from skopt.plots import plot_convergence
 from skopt.plots import plot_objective, plot_evaluations
 from skopt.utils import use_named_args
 
@@ -65,21 +64,21 @@ dimensions= [dim_learning_rate, dim_weight_decay, dim_dropout, dim_num_dense_lay
 
 default_paramaters = [1e-4, 1e-3, 1e-6, 0, 100, 'relu']
 
-def log_dir_name(learning_rate, weight_decay, num_dense_layers, num_dense_nodes, activation): 
+def log_dir_name(learning_rate, weight_decay, num_dense_layers, num_dense_nodes, activation):
 	s = "./crossvalidation%s_logs/lr_{0:.0e}_wd_{0:.0e}_layers_{2}_nodes{3}_{4}/"%fold
 	log_dir = s.format(learning_rate, weight_decay, num_dense_layers, num_dense_nodes, activation)
-	return log_dir 
+	return log_dir
 
-### Make train test and validaiton here 
-
-
+### Make train test and validaiton here
 
 
-def create_model(learning_rate, weight_decay, dropout, num_dense_layers, num_dense_nodes, activation): 
-	###Define model here 
+
+
+def create_model(learning_rate, weight_decay, dropout, num_dense_layers, num_dense_nodes, activation):
+	###Define model here
 	model = Sequential()
 	model.add(InputLayer(input_shape = (input_size,)))
-	for i in range(num_dense_layers): 
+	for i in range(num_dense_layers):
 		name = 'layer_dense_{0}'.format(i+1)
 		model.add(Dense(num_dense_nodes, activation=activation, name=name, kernel_regularizer=regularizers.l2(weight_decay)))
 		model.add(Dropout(dropout))
@@ -92,7 +91,7 @@ def create_model(learning_rate, weight_decay, dropout, num_dense_layers, num_den
 
 
 @use_named_args(dimensions=dimensions)
-def fitness(learning_rate, weight_decay, dropout, num_dense_layers, num_dense_nodes, activation): 
+def fitness(learning_rate, weight_decay, dropout, num_dense_layers, num_dense_nodes, activation):
 	global best_accuracy
 	#best_accuracy = 0.0
 	print('learning rate: ',learning_rate)
@@ -101,7 +100,7 @@ def fitness(learning_rate, weight_decay, dropout, num_dense_layers, num_dense_no
 	print('num_dense_layers: ', num_dense_layers)
 	print('num_dense_nodes: ', num_dense_nodes)
 	print('activation: ', activation)
-	print() 
+	print()
 	model = create_model(learning_rate=learning_rate, weight_decay=weight_decay, dropout=dropout, num_dense_layers=num_dense_layers, num_dense_nodes=num_dense_nodes, activation=activation)
 	log_dir = log_dir_name(learning_rate, weight_decay, num_dense_layers,
                            num_dense_nodes, activation)
@@ -117,13 +116,13 @@ def fitness(learning_rate, weight_decay, dropout, num_dense_layers, num_dense_no
 	accuracy = history.history['val_acc'][-1]
 	print()
 	print('Accuracy: {0:.2%}'.format(accuracy))
-	if accuracy > best_accuracy: 
+	if accuracy > best_accuracy:
 		model.save(path_best_model)
-		best_accuracy = accuracy 
-	del model 
-	K.clear_session() 
-	return -accuracy 
-	
+		best_accuracy = accuracy
+	del model
+	K.clear_session()
+	return -accuracy
+
 def to_table(report):
     report = report.splitlines()
     res = []
@@ -134,15 +133,15 @@ def to_table(report):
     res.append([' '.join(lr[:3])]+lr[3:])
     return np.array(res)
 
-if __name__ == '__main__': 
+if __name__ == '__main__':
 	fold = int(sys.argv[1])
 	feature_type = sys.argv[2]
 
 	path_best_model = './crossvalidation%s_best_model.keras'%fold
-	best_accuracy = 0.0 
+	best_accuracy = 0.0
 	data = pd.read_csv(feature_type, index_col = [0])
 
-	### Making training, test, validation data 
+	### Making training, test, validation data
 	training_samples = pd.read_csv('./training_idx_pcawg.csv', index_col=[0])
 	training_samples.columns = ['guid', 'split']
 	training_samples = training_samples[training_samples.split == fold]
@@ -165,7 +164,7 @@ if __name__ == '__main__':
 	x_val = validation_data.values
 	y_val = validation_data.index
 	x_test = test_data.values
-	y_test = test_data.index 
+	y_test = test_data.index
 
 	encoder = LabelEncoder()
 	test_labels_names = y_test
@@ -183,7 +182,7 @@ if __name__ == '__main__':
 	input_size = x_train.shape[1]
 	num_classes = 24
 
-	### Run Bayesian optimization 
+	### Run Bayesian optimization
 	search_result = gp_minimize(func=fitness, dimensions=dimensions, acq_func='EI', n_calls=200, x0=default_paramaters, random_state=7, n_jobs=-1)
 
 	# Save Best Hyperparameters
@@ -192,7 +191,7 @@ if __name__ == '__main__':
 	model = load_model(path_best_model)
 	# Evaluate best model on test data
 	result = model.evaluate(x=x_test, y=y_test)
-	# Save best model 
+	# Save best model
 	model.save('./crossvalidation_results/fold_%s_model.keras'%fold)
 
 	Y_pred = model.predict(x_test)
@@ -203,9 +202,9 @@ if __name__ == '__main__':
 	b = pd.Series(test_labels)
 	d = pd.DataFrame({'Factor':b, 'Cancer':a})
 	d = d.drop_duplicates()
-	d = d.sort_values('Factor') 
+	d = d.sort_values('Factor')
 
-	## Create array of prediction probabilities 
+	## Create array of prediction probabilities
 	p = model.predict_proba(x_test)
 	p_df = pd.DataFrame(data = p, columns = d.Cancer, index = test_labels_names)
 
@@ -221,7 +220,7 @@ if __name__ == '__main__':
 	r = pd.DataFrame(data=r[1:-1], columns = cols, index = d.Cancer)
 
 	samples = []
-	for i in r.index: 
+	for i in r.index:
 		l = len(data[data.index == i])
 		samples.append(l)
 
@@ -231,10 +230,3 @@ if __name__ == '__main__':
 	r.to_csv('./class_report_fold%s.csv'%fold)
 	c_df.to_csv('./confusion_matrix_fold_%s.csv'%fold)
 	p_df.to_csv('./probability_classification_%s.csv'%fold)
-
-
-
-
-
-
-

@@ -1,14 +1,18 @@
 # TumorType-WGS
 Classifying tumor types based on Whole Genome Sequencing (WGS) data
 
-#### Training RF Models
-```bash
-$ Rscript train_models.R <dataType> <cancerType>
-```
-dataType is one of: SNV, SV, CNV, MUT, GEN, PTW, IND
-cancerType is one of the 24 cancer types.
+I have had some communication with PI and authors. I have also created a Dockerfile and docker is on the dockerhub: <dh>
 
-#### Training DNN Models
-```bash
-$ python train_models_tumour_classifier.py <fold> <path/to/features>
+## Input
+"The input file should be a csv file of dimensionality Nx3047, where N = number of samples, and 3047 are the features ([mutation_distribution, mutation_types])."
+
+I am waiting for the script to parse these features from a 4.3 VCF.
+
+## Running the DNN Model
+N.B. I have no interest in RF Model so excluded it from this fork
+
+```
+To make a prediction run:
+
+python predict_cancer.py --input_file <input.csv> --output <dir>
 ```

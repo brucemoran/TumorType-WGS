@@ -1,0 +1,7 @@
+argparse
+backend
+grpcio==1.24.3
+keras
+numpy
+pandas
+tensorflow
