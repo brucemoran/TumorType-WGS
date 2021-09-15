@@ -16,7 +16,7 @@ rn.seed(73)
 
 from keras import backend as K
 
-session_conf = tf.v1.ConfigProto(
+session_conf = tf.compat.v1.ConfigProto(
       intra_op_parallelism_threads=1,
       inter_op_parallelism_threads=1)
 
