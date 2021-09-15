@@ -21,7 +21,7 @@ session_conf = tf.compat.v1.ConfigProto(
       inter_op_parallelism_threads=1)
 
 #Force Tensorflow to use a single thread
-sess = tf.compat.v1.Session(graph=tf.get_default_graph(), config=session_conf)
+sess = tf.compat.v1.Session(graph=tf.compat.v1.get_default_graph(), config=session_conf)
 
 K.set_session(sess)
 import math
