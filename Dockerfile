@@ -13,7 +13,7 @@ LABEL software="tumortype-wgs" \
   about.tags="biology::variants, field::biology, field::biology:bioinformatics,:dnn, role::program, use::analysing,:variants"
 ENV CENTOS_FRONTEND noninteractive
 COPY requirements.txt .
-RUN yum install -y git python3 perl
+RUN yum install -y git python3
 RUN curl https://bootstrap.pypa.io/pip/2.7/get-pip.py --output get-pip.py && python get-pip.py
 RUN pip install setuptools
 RUN pip install --user --no-warn-script-location -r requirements.txt
