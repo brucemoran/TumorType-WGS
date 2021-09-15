@@ -7,7 +7,9 @@ I have had some communication with PI and authors. I have also created a Dockerf
 ```
 git clone https://github.com/brucemoran/TumorType-WGS
 cd TumorType-WGS
-docker build -t tumortype-wgs_0.0.1 .
+docker build -t tumortype-wgs .
+docker run -t tumortype-wgs
+docker start tumortype-wgs
 ```
 
 ## Input
