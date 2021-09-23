@@ -7,4 +7,3 @@ pandas
 tensorflow
 scikit-allel
 Bio
-multiprocessing
