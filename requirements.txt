@@ -5,3 +5,6 @@ keras
 numpy
 pandas
 tensorflow
+scikit-allel
+Bio
+multiprocessing
