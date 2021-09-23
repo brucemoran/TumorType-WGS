@@ -14,9 +14,6 @@ LABEL software="tumortype-wgs" \
 ENV CENTOS_FRONTEND noninteractive
 COPY requirements.txt .
 RUN yum install -y git python3
-RUN curl https://bootstrap.pypa.io/pip/2.7/get-pip.py --output get-pip.py && python get-pip.py
-RUN pip install setuptools
-RUN pip install --user --no-warn-script-location -r requirements.txt
 RUN python3 -m pip install --upgrade pip
 RUN pip3 install --user --no-warn-script-location -r requirements.txt
 RUN pip3 install --upgrade tensorflow
