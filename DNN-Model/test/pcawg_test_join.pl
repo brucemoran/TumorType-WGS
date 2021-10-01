@@ -1,5 +1,5 @@
 ##join ../../pcawg_mutation*csv files
-open(DIST, "../../pcawg_mutation_distribution.csv");
+open(DIST, "pcawg_mutation_distribution.csv");
 my %dist;
 while(<DIST>){
     chomp $_;
@@ -9,8 +9,8 @@ while(<DIST>){
 }
 close(DIST);
 
-open(TYPE, "../../pcawg_mutations_types.csv");
-open(OUT, ">example_input.csv");
+open(TYPE, "pcawg_mutations_types.csv");
+open(OUT, ">test_input.csv");
 while(<TYPE>){
     chomp $_;
     my @sp=split(/\,/);

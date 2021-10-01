@@ -16,10 +16,17 @@ from multiprocessing import Pool
 ##help
 parser = argparse.ArgumentParser(
     description='''Parse VCF into format for use with predict_cancer.py script ''')
-parser.add_argument('--fasta', help='FASTA file for genome used to align VCF')
-parser.add_argument('--vcf', help='VCF file from which to run predict_cancer.py')
-parser.add_argument('--sampleID', help='String naming sample in VCF to tag output')
+parser.add_argument('--fasta', help='FASTA file for genome used to align VCF', required = True)
+parser.add_argument('--vcf', help='VCF file from which to run predict_cancer.py', required = True)
+parser.add_argument('--output_dir', help='Path to directory in which to write output')
+parser.add_argument('--sample_name', help='Sample naming to tag output')
 args=parser.parse_args()
+
+if args.output_dir == None:
+    args.output_dir = "./"
+
+if args.sample_name == None:
+    args.sample_name = "TumorType_DNN"
 
 def reverse_complement(seq):
     complement = {'A': 'T', 'C': 'G', 'G': 'C', 'T': 'A'}
@@ -198,6 +205,6 @@ if __name__ == '__main__':
     cb_df = cb_df.set_index('bins')
 
     cb_df = cb_df.transpose()
-    cb_df.to_csv(sample_name + '.predict_cancer_input.csv', header=True)
+    cb_df.to_csv(args.output_dir + "/" + sample_name + '.predict_cancer_input.csv', header=True)
 
     print("total --- %s seconds ---" % (time.time() - start_time1))
