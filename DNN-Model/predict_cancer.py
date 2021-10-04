@@ -78,4 +78,4 @@ if __name__== "__main__":
     predictions_df.to_csv(output_dir + "/" + output_name + ".cancer_prediction_probability.tsv", sep = '\t')
     cancer_classes = [factor_dict[i] for i in class_predictions]
     class_df = pd.DataFrame({'cancer_prediction':cancer_classes}, index = data.index)
-    class_df.to_csv(output_dir + "/" + output_name + "cancer_predictions.tsv", sep = '\t')
+    class_df.to_csv(output_dir + "/" + output_name + ".cancer_predictions.tsv", sep = '\t')
