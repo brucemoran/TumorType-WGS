@@ -26,7 +26,6 @@ else
   MNL="--mount type=bind,source="
   MNO=",target=/mnt\n"
   MNT="$(echo -e "$MNL"$(dirname $VCF)"$MNO\n$MNL"$(dirname $fasta)"$MNO\n" | sort | uniq)"
-  echo "$MNT" | perl -ane 'for $k (@F){print $k . "\n";}' | uniq
   CMD="mkdir -p /mnt/${sample_name} && python3 /TumorType-WGS/DNN-Model/vcf2input.py \
         --vcf /mnt/$(basename "${VCF}") \
         --fasta /mnt/$(basename "${fasta}") \
