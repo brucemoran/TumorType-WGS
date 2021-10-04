@@ -160,7 +160,7 @@ def df2mut(tmp1, seq_list, sample_name):
         changes.append(change_di2)
         changes.append(change_tri)
     mutdf_tmp = pd.DataFrame({"bins": pd.Series(
-        pd.Categorical(changes, categories=mut_df_header.iloc[:, 0]))})
+        pd.Categorical(changes, categories=mut_df_header.iloc[:, 0]), dtype=object)})
     mut_df = mutdf_tmp.groupby('bins').size().reset_index(name=sample_name)
     if sum(mut_df[sample_name]) > 0:
         tmp_sgl = mut_df[sample_name].iloc[0:6] / \
@@ -177,9 +177,10 @@ def df2mut(tmp1, seq_list, sample_name):
 
 if __name__ == '__main__':
     # load FASTA Files:
+    print("--- Loading FASTA File ---")
     start_time1 = time.time()
     seq_list = fasta_reader(args.fasta)
-    print("--- %s seconds to load %s FASTA Files---" %
+    print("--- %s seconds to load %s FASTA File ---" %
       ((time.time() - start_time1), len(seq_list)))
 
     # load VCF file:
