@@ -14,7 +14,7 @@ else
   fi
 
     ##input flags
-    while getopts v:f:s flag; do
+    while getopts "v:f:s:" flag; do
       case "${flag}" in
           v) VCF=${OPTARG};;
           f) fasta=${OPTARG};;
@@ -30,10 +30,11 @@ else
         --vcf /mnt/$(basename "${VCF}") \
         --fasta /mnt/$(basename "${fasta}") \
         --sample_name ${sample_name} \
-        --output_dir /mnt/${sample_name}; \
+        --output_dir /mnt; \
        python3 /TumorType-WGS/DNN-Model/predict_cancer.py \
-        --input_csv /mnt/${sample_name}/${sample_name}.predict_cancer_input.csv \
-        --output_dir /mnt/${sample_name}/"
+        --input_csv /mnt/${sample_name}.predict_cancer_input.csv \
+        --output_dir /mnt"
+  echo -e "Command to be run:\n$CMD"
   docker run ${MNT} ${DOCKER} bash -c "${CMD}"
 
 fi
