@@ -184,7 +184,7 @@ if __name__ == '__main__':
 
     # load VCF file:
     vcf_df = vcf2df(args.vcf, seq_list)
-    sample_name = args.sampleID
+    sample_name = args.sample_name
 
     # convert VCF to Bin counts
     start_time = time.time()
