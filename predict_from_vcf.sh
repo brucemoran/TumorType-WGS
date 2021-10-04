@@ -24,11 +24,10 @@ else
 
   ##need to mount dirs of input and output
   MNL="--mount type=bind,source="
-  MNO=",target=/mnt\n"
-  MNT="$(echo -e "$MNL"$(dirname $VCF)"$MNO\n$MNL"$(dirname $fasta)"$MNO\n" | sort | uniq)"
+  MNT="$(echo -e "$MNL"$(dirname $VCF)",target=/mnt/vcf\n$MNL"$(dirname $fasta)",target=/mnt/fasta\n" | sort | uniq)"
   CMD="python3 /TumorType-WGS/DNN-Model/vcf2input.py \
-        --vcf /mnt/$(basename "${VCF}") \
-        --fasta /mnt/$(basename "${fasta}") \
+        --vcf /mnt/vcf/$(basename "${VCF}") \
+        --fasta /mnt/fasta/$(basename "${fasta}") \
         --sample_name ${sample_name} \
         --output_dir /mnt; \
        python3 /TumorType-WGS/DNN-Model/predict_cancer.py \
@@ -36,7 +35,7 @@ else
         --output_dir /mnt"
   echo -e "Command to be run:\n$CMD"
   echo -e "Mounting:\n"${MNT}
-  
+
   docker run ${MNT} ${DOCKER} bash -c "${CMD}"
 
 fi
