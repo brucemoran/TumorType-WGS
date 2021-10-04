@@ -43,10 +43,10 @@ from keras import regularizers
 
 if __name__== "__main__":
 
-    parser = argparse.ArgumentParser(description='Predict cancer type from mutation topology and mutation types', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument('--input_csv', help='Input (use \'vcf2input.py\')', required = True)
-    parser.add_argument('--output_dir', help='Path to directory in which to write output')
-    args = parser.parse_args()
+parser = argparse.ArgumentParser(description='Predict cancer type from mutation topology and mutation types', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+parser.add_argument('--input_csv', help='Input (use \'vcf2input.py\')', required = True)
+parser.add_argument('--output_dir', help='Path to directory in which to write output')
+args = parser.parse_args()
 
     if args.output_dir == None:
         args.output_dir = "./"
@@ -66,7 +66,7 @@ if __name__== "__main__":
     model = load_model('/TumorType-WGS/DNN-Model/model/ensemble_model.keras')
     input_file = args.input_csv
     output_dir = args.output_dir
-    output_name = input_file.split(".")[0]
+    output_name = input_file.split("/")[-1].split(".")[0]
     data = pd.read_csv(input_file, index_col = [0])
     x_input = data.values
     if x_input.shape[-1] != 3047:

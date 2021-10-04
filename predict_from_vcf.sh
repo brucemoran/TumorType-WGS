@@ -37,5 +37,5 @@ else
         --input_csv /mnt/${sample_name}/${sample_name}.predict_cancer_input.csv \
         --output_dir /mnt/${sample_name}/"
   docker run ${MNT} ${DOCKER} bash -c "${CMD}"
-  docker cp ${DOCKER}:"/mnt/${output_dir}/${sample}.cancer_predictions.tsv" ${output_local}
+  docker cp ${DOCKER}:"/mnt/${sample_name}/${sample}.cancer_predictions.tsv" ${output_local}
 fi
