@@ -35,6 +35,8 @@ else
         --input_csv /mnt/${sample_name}.predict_cancer_input.csv \
         --output_dir /mnt"
   echo -e "Command to be run:\n$CMD"
+  echo -e "Mounting:\n"${MNT}
+  
   docker run ${MNT} ${DOCKER} bash -c "${CMD}"
 
 fi
