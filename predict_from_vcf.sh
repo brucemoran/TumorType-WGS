@@ -29,10 +29,10 @@ else
         --vcf /mnt/vcf/$(basename "${VCF}") \
         --fasta /mnt/fasta/$(basename "${fasta}") \
         --sample_name ${sample_name} \
-        --output_dir /mnt; \
+        --output_dir /mnt/vcf; \
        python3 /TumorType-WGS/DNN-Model/predict_cancer.py \
-        --input_csv /mnt/${sample_name}.predict_cancer_input.csv \
-        --output_dir /mnt"
+        --input_csv /mnt/vcf/${sample_name}.predict_cancer_input.csv \
+        --output_dir /mnt/vcf"
   echo -e "Command to be run:\n$CMD"
   echo -e "Mounting:\n"${MNT}
 
