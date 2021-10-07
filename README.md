@@ -2,7 +2,7 @@
 Classifying tumor types based on Whole Genome Sequencing (WGS) data
 
 ## Overview
-This work is published in (Jiao et al. 2020)[https://www.nature.com/articles/s41467-019-13825-8] as part of the (PCAWG)[https://dcc.icgc.org/pcawg]
+This work is published in [Jiao et al. 2020](https://www.nature.com/articles/s41467-019-13825-8) as part of the (PCAWG)[https://dcc.icgc.org/pcawg]
 Here the (original repo)[https://github.com/ICGC-TCGA-PanCancer/TumorType-WGS/commit/b79d090321f04840ae564d0117d315b3e0df0ff1] attached to the paper has been converted to a working tool that can be run by users. NB that only the `DNN-Model` was used and the `RF-Model` has been removed.
 
 ## Usage
